@@ -51,8 +51,17 @@ vermicompost-monitor/
 │   ├── Sensors/                Drivers concretos (analógico, 1-Wire, ...)
 │   └── Transport/              WiFi + MQTT (esqueleto)
 ├── src/main.cpp                Une todo: despierta → orquesta → duerme
-└── test/                       Pruebas (Scheduler es testeable sin hardware)
+├── hardware_tests/             Sketches de prueba con su propio setup()/loop()
+├── test/                       Unit tests sin hardware (Scheduler es testeable)
+└── PRUEBAS.md                  Bitácora de pruebas realizadas
 ```
+
+> **hardware_tests/** guarda sketches que validan un componente contra hardware
+> real (p. ej. `test_deepSlp_temp.cpp`). Cada uno trae su propio `setup()`/`loop()`,
+> por eso vive **fuera** de `src/`: PlatformIO solo compila `src/` por defecto, así
+> no colisiona con el `setup()` de `main.cpp`. Para correr uno, apuntá el build a
+> ese archivo (`build_src_filter` / `src_dir` en `platformio.ini`). Los resultados
+> se anotan en `PRUEBAS.md`.
 
 `include/core` es el corazón reutilizable: **otros módulos del sistema general**
 dependen de estas interfaces, no de implementaciones concretas.
