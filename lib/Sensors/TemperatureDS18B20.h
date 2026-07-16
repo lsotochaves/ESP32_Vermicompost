@@ -5,12 +5,10 @@
 
 namespace vermi {
 
-// Skeleton for a 1-Wire temperature probe (DS18B20) -- the classic choice for
-// compost bed temperature (waterproof stainless versions exist). Shown to make
-// the point: a DIFFERENT protocol, SAME ISensor contract. Fill in begin()/sample()
-// using the OneWire + DallasTemperature libraries (add them to lib_deps).
 class TemperatureDS18B20 : public ISensor {
 public:
+    static constexpr uint8_t BIT_RESOLUTION = 12;
+
     TemperatureDS18B20(uint16_t id, int oneWirePin)
         : _id(id), _pin(oneWirePin), _oneWire(oneWirePin), _tempSensor(&_oneWire) {}
 
