@@ -1,5 +1,7 @@
 #pragma once
 #include "core/ISensor.h"
+#include <OneWire.h>
+#include <DallasTemperature.h>
 
 namespace vermi {
 
@@ -9,7 +11,8 @@ namespace vermi {
 // using the OneWire + DallasTemperature libraries (add them to lib_deps).
 class TemperatureDS18B20 : public ISensor {
 public:
-    TemperatureDS18B20(uint16_t id, int oneWirePin) : _id(id), _pin(oneWirePin) {}
+    TemperatureDS18B20(uint16_t id, int oneWirePin)
+        : _id(id), _pin(oneWirePin), _oneWire(oneWirePin), _tempSensor(&_oneWire) {}
 
     bool   begin() override;
     size_t sample(Reading* out, size_t maxOut, uint32_t now) override;
@@ -19,6 +22,8 @@ public:
 private:
     uint16_t _id;
     int _pin;
+    OneWire           _oneWire;
+    DallasTemperature _tempSensor;
 };
 
 } // namespace vermi
