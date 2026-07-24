@@ -4,3 +4,4 @@ include/secrets.h
 *.o
 *.d
 CLAUDE.md
+docs/
